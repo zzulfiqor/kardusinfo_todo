@@ -1,4 +1,5 @@
 class NoteModel {
+  String? id;
   String? title;
   String? content;
   DateTime? dateCreated;
@@ -7,6 +8,7 @@ class NoteModel {
   bool? isCompleted;
 
   NoteModel({
+    this.id,
     this.title,
     this.content,
     this.dateCreated,
@@ -18,6 +20,7 @@ class NoteModel {
   // toMap
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'content': content,
       'dateCreated': dateCreated.toString(),
@@ -30,6 +33,7 @@ class NoteModel {
   // fromMap
   factory NoteModel.fromJson(Map<String, dynamic> json) {
     return NoteModel(
+      id: json['id'],
       title: json['title'],
       content: json['content'],
       dateCreated: DateTime.parse(json['dateCreated']),

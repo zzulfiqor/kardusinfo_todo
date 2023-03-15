@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kardusinfo_todo/core/helper/auth_helper.dart';
 import 'package:kardusinfo_todo/core/util/app_color.dart';
@@ -69,11 +70,12 @@ class NoteController extends GetxController {
     }
   }
 
-  // add note
+  // add todo
   Future<void> addNewNote() async {
     isLoading = true;
     try {
       var note = NoteModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         title: 'New Note',
         content: 'New Note Description',
         dateCreated: DateTime.now(),
@@ -82,6 +84,17 @@ class NoteController extends GetxController {
         isCompleted: false,
       );
       await _createNoteUseCase.call(note);
+      await getAllNotes();
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  // complete todo
+  Future<void> completeNote() async {
+    isLoading = true;
+    try {
+      // await _createNoteUseCase.call(note);
       await getAllNotes();
     } finally {
       isLoading = false;

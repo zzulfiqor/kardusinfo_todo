@@ -45,38 +45,66 @@ class NoteScreen extends GetView<NoteController> {
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-              child: Row(
+              child: Stack(
                 children: [
-                  // Today Reminder
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Today Reminder',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Obx(() => Text(
-                              '${controller.todayReminder.length} Tasks',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            )),
-                      ],
+                  // Background
+                  Positioned(
+                    top: -20,
+                    right: -20,
+                    child: Image.asset(
+                      'assets/images/bg_circle.png',
+                      height: 125,
                     ),
                   ),
-                  // bel
-                  Image.asset(
-                    'assets/images/bell.png',
-                    height: 75,
+
+                  // Background
+                  Positioned(
+                    bottom: -20,
+                    left: 0,
+                    child: Image.asset(
+                      'assets/images/bg_circle.png',
+                      height: 120,
+                    ),
+                  ),
+
+                  // Today Reminder
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 24),
+                    child: Row(
+                      children: [
+                        // Today Reminder
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Today Reminder',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Obx(() => Text(
+                                    '${controller.todayReminder.length} Tasks',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        // bel
+                        Image.asset(
+                          'assets/images/bell.png',
+                          height: 75,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
