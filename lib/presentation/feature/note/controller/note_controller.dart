@@ -1,16 +1,24 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kardusinfo_todo/core/helper/auth_helper.dart';
+import 'package:kardusinfo_todo/core/router/route_name.dart';
 import 'package:kardusinfo_todo/core/util/app_color.dart';
 import 'package:kardusinfo_todo/data/model/note_model.dart';
 import 'package:kardusinfo_todo/domain/usecase/create_note_usecase.dart';
 import 'package:kardusinfo_todo/domain/usecase/get_all_notes_usecase.dart';
+import 'package:kardusinfo_todo/domain/usecase/update_note_usecase.dart';
+
+import '../../../../domain/usecase/delete_note_usecase.dart';
 
 class NoteController extends GetxController {
   late AuthHelper _authHelper;
   late GetAllNotesUseCase _getAllNotesUseCase;
   late CreateNoteUseCase _createNoteUseCase;
+  late UpdateNoteUseCase _updateNoteUseCase;
+  late DeleteNoteUseCase _deleteNoteUseCase;
 
   final _userEmail = ''.obs;
   String get userEmail => _userEmail.value;
@@ -35,6 +43,8 @@ class NoteController extends GetxController {
     _authHelper = AuthHelper();
     _getAllNotesUseCase = Get.find();
     _createNoteUseCase = Get.find();
+    _updateNoteUseCase = Get.find();
+    _deleteNoteUseCase = Get.find();
     isLoading = true;
     try {
       getUser();
@@ -61,29 +71,21 @@ class NoteController extends GetxController {
       var notes = await _getAllNotesUseCase.call();
       todayReminder = notes
           .where((element) =>
-              DateTime.now().day == element.dateCreated?.day &&
-              DateTime.now().month == element.dateCreated?.month &&
-              DateTime.now().year == element.dateCreated?.year)
+              DateTime.now().day == element.time?.day &&
+              DateTime.now().month == element.time?.month &&
+              DateTime.now().year == element.time?.year)
           .toList();
+      allReminder = notes;
     } finally {
       isLoading = false;
     }
   }
 
-  // add todo
-  Future<void> addNewNote() async {
+  // Delete todo
+  Future<void> deleteNoteById(NoteModel note) async {
     isLoading = true;
     try {
-      var note = NoteModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        title: 'New Note',
-        content: 'New Note Description',
-        dateCreated: DateTime.now(),
-        dateModified: DateTime.now(),
-        color: AppColor.pastelPurple.value,
-        isCompleted: false,
-      );
-      await _createNoteUseCase.call(note);
+      await _deleteNoteUseCase.call(note);
       await getAllNotes();
     } finally {
       isLoading = false;
@@ -91,11 +93,22 @@ class NoteController extends GetxController {
   }
 
   // complete todo
-  Future<void> completeNote() async {
+  Future<void> completeNote(NoteModel note) async {
     isLoading = true;
     try {
-      // await _createNoteUseCase.call(note);
+      await _updateNoteUseCase.call(note);
       await getAllNotes();
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  // logout
+  Future<void> logout() async {
+    isLoading = true;
+    try {
+      await _authHelper.signOutUser();
+      Get.offAllNamed(RouteName.login);
     } finally {
       isLoading = false;
     }

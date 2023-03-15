@@ -10,8 +10,7 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<void> deleteNoteById(String id) {
-    // TODO: implement deleteNoteById
-    throw UnimplementedError();
+    return ds.deleteNoteById(id);
   }
 
   @override
@@ -32,8 +31,9 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<void> updateNote(NoteModel note) {
-    // TODO: implement updateNote
-    throw UnimplementedError();
+  Future<void> updateNote(NoteModel note)async {
+    return await ds.updateNoteById(note);
   }
+
+
 }

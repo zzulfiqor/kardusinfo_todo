@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kardusinfo_todo/core/helper/auth_helper.dart';
 
+import '../../../../core/router/route_name.dart';
+
 class LoginController extends GetxController {
   late AuthHelper authHelper;
 
@@ -35,6 +37,7 @@ class LoginController extends GetxController {
       var email = emailController.text;
       var password = passwordController.text;
       await authHelper.signIn(email, password);
+      Get.offAllNamed(RouteName.note);
     } catch (e) {
       log(e.toString());
     }

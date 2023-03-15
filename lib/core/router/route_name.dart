@@ -4,4 +4,5 @@ class RouteName{
   static const String note = '/note';
   static const String noteDetail = '/noteDetail';
   static const String signUp = '/signUp';
+  static const String noteCreate = '/noteCreate';
 }

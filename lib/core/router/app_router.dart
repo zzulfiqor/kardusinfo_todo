@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:kardusinfo_todo/core/router/route_name.dart';
 import 'package:kardusinfo_todo/presentation/feature/login/login_screen.dart';
 import 'package:kardusinfo_todo/presentation/feature/note/note_screen.dart';
+import 'package:kardusinfo_todo/presentation/feature/note_create/note_create_screen.dart';
 import 'package:kardusinfo_todo/presentation/feature/splash/splash_screen.dart';
 
 import '../../presentation/feature/login/binding/login_binding.dart';
 import '../../presentation/feature/note/binding/note_binding.dart';
+import '../../presentation/feature/note_create/binding/note_create_binding.dart';
 import '../../presentation/feature/signup/binding/signup_binding.dart';
 import '../../presentation/feature/signup/signup_screen.dart';
 import '../../presentation/feature/splash/binding/splash_binding.dart';
@@ -32,6 +34,12 @@ final List<GetPage> appRouter = [
     page: () =>  SignUpScreen(),
     binding: SignUpBinding(),
   ),
+    GetPage(
+    name: RouteName.noteCreate,
+    page: () =>  NoteCreateScreen(),
+    binding: NoteCreateBinding(),
+  ),
+  
   
   
 ];

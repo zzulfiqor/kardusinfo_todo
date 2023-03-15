@@ -2,6 +2,7 @@ class NoteModel {
   String? id;
   String? title;
   String? content;
+  DateTime? time;
   DateTime? dateCreated;
   DateTime? dateModified;
   int? color;
@@ -11,6 +12,7 @@ class NoteModel {
     this.id,
     this.title,
     this.content,
+    this.time,
     this.dateCreated,
     this.dateModified,
     this.color,
@@ -23,6 +25,7 @@ class NoteModel {
       'id': id,
       'title': title,
       'content': content,
+      'time': time.toString(),
       'dateCreated': dateCreated.toString(),
       'dateModified': dateModified.toString(),
       'color': color,
@@ -36,6 +39,7 @@ class NoteModel {
       id: json['id'],
       title: json['title'],
       content: json['content'],
+      time: DateTime.parse(json['time']),
       dateCreated: DateTime.parse(json['dateCreated']),
       dateModified: DateTime.parse(json['dateModified']),
       color: json['color'],

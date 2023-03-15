@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
   final String hintText;
   final bool isObsecure;
   final String title;
+  final bool isLongText;
 
   const AppTextField({
     super.key,
@@ -19,6 +20,7 @@ class AppTextField extends StatelessWidget {
     required this.hintText,
     this.isObsecure = false,
     this.title = '',
+    this.isLongText = false,
   });
 
   @override
@@ -49,17 +51,31 @@ class AppTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               margin: EdgeInsets.symmetric(vertical: 10),
-              child: TextField(
-                controller: _.controller,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: hintText,
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    )),
-                obscureText: isObsecure,
-              ),
+              child: isLongText
+                  ? TextField(
+                      controller: _.controller,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                          )),
+                      obscureText: isObsecure,
+                    )
+                  : TextField(
+                      controller: _.controller,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                          )),
+                      obscureText: isObsecure,
+                    ),
             ),
           ],
         );

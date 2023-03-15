@@ -74,7 +74,6 @@ class LoginScreen extends GetView<LoginController> {
                   disabled: controller.isLoading,
                   onPressed: () async {
                     await controller.signIn();
-                    Get.offAllNamed(RouteName.note);
                   },
                   text: 'Login',
                   child: controller.isLoading

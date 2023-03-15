@@ -60,4 +60,13 @@ class AuthHelper {
       log(e.toString());
     }
   }
+
+  // signout
+  Future<void> signOutUser() async {
+    try {
+      await _authInstance.signOut();
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
+    }
+  }
 }
