@@ -10,6 +10,11 @@ class AuthHelper {
     return _authInstance.currentUser != null ? true : false;
   }
 
+  // get user
+  User? getUser() {
+    return _authInstance.currentUser;
+  }
+
   // user state changed
   Stream<User?> get userState => _authInstance.authStateChanges();
 
