@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kardusinfo_todo/core/router/route_name.dart';
@@ -14,8 +13,9 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.toNamed(RouteName.noteCreate, arguments: [data]);
+      onTap: () async {
+        await Get.toNamed(RouteName.noteCreate, arguments: [data]);
+        Get.find<NoteController>().getAllNotes();
       },
       child: Container(
         padding: const EdgeInsets.only(right: 16),
