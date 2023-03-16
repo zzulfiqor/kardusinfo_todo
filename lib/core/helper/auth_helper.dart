@@ -19,14 +19,15 @@ class AuthHelper {
   Stream<User?> get userState => _authInstance.authStateChanges();
 
   // sign in
-  Future<void> signIn(String email, String password) async {
+  Future<bool> signIn(String email, String password) async {
     try {
       await _authInstance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return true;
     } on FirebaseAuthException catch (e) {
-      log(e.toString());
+      return false;
     }
   }
 
@@ -38,10 +39,9 @@ class AuthHelper {
       log(e.toString());
     }
   }
-  
 
   // sign up
-   Future<void> signUp(String email, String password) async {
+  Future<void> signUp(String email, String password) async {
     try {
       await _authInstance.createUserWithEmailAndPassword(
         email: email,

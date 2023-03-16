@@ -36,8 +36,13 @@ class LoginController extends GetxController {
     try {
       var email = emailController.text;
       var password = passwordController.text;
-      await authHelper.signIn(email, password);
-      Get.offAllNamed(RouteName.note);
+      var isSuccessLogin = await authHelper.signIn(email, password);
+
+      if (isSuccessLogin) {
+        Get.offAllNamed(RouteName.note);
+      } else {
+        Get.snackbar('Error', 'Email or password is wrong');
+      }
     } catch (e) {
       log(e.toString());
     }
